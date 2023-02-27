@@ -27,7 +27,7 @@ public class matrix {
         return returnMatrix;
     }
 
-    public static void print(int[][] matrix){
+    public static void print(int[][] matrix) {
         int columns = matrix[0].length;
         for (int[] ints : matrix) {
             for (int j = 0; j < columns; j++) {
