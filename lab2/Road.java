@@ -21,13 +21,16 @@ public class Road {
      * @param location1  first location of this road
      * @param location2  second location of this road
      */
-    Road(roadType type, double length, int speedLimit, Location location1, Location location2) {
+    Road(roadType type, double length, int speedLimit, Location location1, Location location2) throws RuntimeException {
         //calculates euclidean distance between Locations
         double minDistance = Math.sqrt(Math.pow(location1.getX() - location2.getX(), 2) +
                 Math.pow(location1.getY() - location2.getY(), 2));
 
         if (length < minDistance) {
             throw new RuntimeException("Road length cannot be smaller than euclidean distance between locations!");
+        }
+        if (speedLimit < 1) {
+            throw new RuntimeException("Speed limit cannot be less than 1!");
         }
         this.setType(type);
         this.setLength(length);

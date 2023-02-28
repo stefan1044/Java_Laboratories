@@ -1,15 +1,15 @@
 package lab2;
 
 /**
- * Class to determine the shortest or fastest path between two Locations. Best path refers to shortest or fastest
+ * Class to determine if there is a path between two Locations.
  * path.
  *
  * @author Harabagiu Stefan
  */
 public class Problem {
 
-    private final Location[] locations;
-    private final Road[] roads;
+    protected final Location[] locations;
+    protected final Road[] roads;
 
 
     /**
@@ -91,6 +91,7 @@ public class Problem {
             }
             if (fromLocationIndex != -1 && toLocationIndex != -1) {
                 adjacencyMatrix[fromLocationIndex][toLocationIndex] = true;
+                adjacencyMatrix[toLocationIndex][fromLocationIndex] = true;
             }
         }
 
@@ -100,6 +101,7 @@ public class Problem {
         boolean[] visitedLocation = new boolean[this.locations.length];
         int queueTop = 1, queueBottom = 0;
         queue[0] = location1Index;
+        visitedLocation[location1Index] = true;
 
         while (queueBottom != queueTop) {
             for (int index = 0; index < locations.length; index++) {
