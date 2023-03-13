@@ -15,15 +15,14 @@ public class Lab3 {
         lab3.bonus();
     }
 
-    void compulsory(){
+    void compulsory() {
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
         Date date1 = null;
         try {
             date1 = dateFormatter.parse("30-09-2002");
-        }
-        catch (ParseException e){
+        } catch (ParseException e) {
             System.out.println("Parse exception when formatting string: " + e.getMessage());
         }
 
@@ -31,23 +30,24 @@ public class Lab3 {
         Node c1 = new Company("Microsoft", 8_000_000);
 
 
-        List<Node> list =  new ArrayList<>();
+        List<Node> list = new ArrayList<>();
         list.add(p1);
         list.add(c1);
 
         System.out.println(list);
     }
 
-    void homework(){
+    void homework() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
-        Date date2 = null; Date date3 = null; Date date4 = null;
+        Date date2 = null;
+        Date date3 = null;
+        Date date4 = null;
         try {
             date2 = dateFormatter.parse("30-09-2002");
             date3 = dateFormatter.parse("05-04-2002");
             date4 = dateFormatter.parse("02-05-2003");
-        }
-        catch (ParseException e){
+        } catch (ParseException e) {
             System.out.println("Parse exception when formatting string: " + e.getMessage());
         }
 
@@ -77,7 +77,9 @@ public class Lab3 {
 
     }
 
-    void bonus(){
+    void bonus() {
+        NetworkTest test = new NetworkTest();
 
+        test.articulationPoints();
     }
 }

@@ -15,23 +15,24 @@ public class Person implements Comparable<Person>, Node {
         this.birthdate = birthdate;
     }
 
-    public Relations getRelation(Node node){
+    public Relations getRelation(Node node) {
         return this.relations.get(node);
     }
-    public void addRelation(Node node, Relations relation) throws NullPointerException{
-        if (relation == null){
+
+    public void addRelation(Node node, Relations relation) throws NullPointerException {
+        if (relation == null) {
             throw new NullPointerException("Relation cannot be null!");
         }
         if (node instanceof Person && relation instanceof PersonToCompanyRelation) {
             throw new ClassCastException("Cannot add relation of type PersonToCompany between 2 Persons!");
         }
-        if (node instanceof Company && relation instanceof PersonToPersonRelation){
+        if (node instanceof Company && relation instanceof PersonToPersonRelation) {
             throw new ClassCastException("Cannot add relation of type PersonToPerson between Person and company!");
         }
 
         this.relations.put(node, relation);
         // This is so 2 Persons don't keep adding the relation to each-other indefinitely
-        if(node instanceof Person && (node).getRelation(this) != relation){
+        if (node instanceof Person && (node).getRelation(this) != relation) {
             return;
         }
         node.addRelation(this, relation);

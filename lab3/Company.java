@@ -2,13 +2,13 @@ package lab3;
 
 import java.util.HashMap;
 
-public class Company implements Comparable<Company>, Node{
+public class Company implements Comparable<Company>, Node {
 
     private final String name;
     private final int revenue;
     private final HashMap<Person, Relations> employees;
 
-    Company(String name, int revenue){
+    Company(String name, int revenue) {
         this.name = name;
         this.revenue = revenue;
         this.employees = new HashMap<>();
@@ -18,7 +18,7 @@ public class Company implements Comparable<Company>, Node{
         return revenue;
     }
 
-    public Relations getRelation(Node node){
+    public Relations getRelation(Node node) {
         if (node instanceof Company)
             return null;
         return this.employees.get((Person) node);
@@ -37,27 +37,25 @@ public class Company implements Comparable<Company>, Node{
     }
 
     @Override
-    public void addRelation(Node node, Relations relation) throws NullPointerException,ClassFormatError {
-        if (relation == null){
+    public void addRelation(Node node, Relations relation) throws NullPointerException, ClassFormatError {
+        if (relation == null) {
             throw new NullPointerException("Relation cannot be null!");
         }
-        if (relation instanceof PersonToPersonRelation){
+        if (relation instanceof PersonToPersonRelation) {
             throw new ClassFormatError("Cannot add relation of type PersonToPerson between Company and Person");
         }
 
-        if ( node instanceof Person){
+        if (node instanceof Person) {
             this.employees.put((Person) node, relation);
-        }
-        else{
+        } else {
             throw new ClassFormatError("Companies cannot have relations with another company!");
         }
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Company: " + this.name;
     }
-
 
 
 }

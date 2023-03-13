@@ -1,9 +1,6 @@
 package lab3;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class Network {
 
@@ -25,6 +22,8 @@ public class Network {
                 }
             }
         }
+
+        createAdjacencyLists();
     }
 
 
@@ -53,6 +52,7 @@ public class Network {
             }
         }
         this.list.add(node);
+        createAdjacencyLists();
     }
 
     public ArrayList<ArrayList<Object>> getSortedImportanceList() {
@@ -77,6 +77,21 @@ public class Network {
         return importanceList;
     }
 
+    private void createAdjacencyLists() {
+        this.adjacencyList = new ArrayList<>();
+        for (int iteration = 0; iteration < this.list.size(); iteration++) {
+            adjacencyList.add(new ArrayList<>());
+        }
+        for (int index1 = 0; index1 < this.list.size(); index1++) {
+            for (int index2 = index1 + 1; index2 < this.list.size(); index2++) {
+                if (this.list.get(index1).getRelation(this.list.get(index2)) != null) {
+                    adjacencyList.get(index1).add(index2);
+                    adjacencyList.get(index2).add(index1);
+                }
+            }
+        }
+    }
+
     private boolean dfs(int v, int p) {
         this.visited[v] = true;
         this.timer++;
@@ -99,25 +114,10 @@ public class Network {
         return p == -1 && children > 1;
     }
 
-    public HashSet<Node> articulationPoints() {
+    public ArrayList<Node> articulationPoints() {
         HashSet<Node> articulationPoints = new HashSet<>();
 
         int numberOfNodes = this.list.size();
-        this.adjacencyList = new ArrayList<>();
-        for(int iteration = 0;iteration<numberOfNodes;iteration++){
-            adjacencyList.add(new ArrayList<>());
-        }
-
-        for (int index1 = 0; index1 < numberOfNodes; index1++) {
-            for (int index2 = index1 + 1; index2 < numberOfNodes; index2++) {
-                if (this.list.get(index1).getRelation(this.list.get(index2)) != null) {
-                    adjacencyList.get(index1).add(index2);
-                    adjacencyList.get(index2).add(index1);
-                }
-            }
-        }
-
-        this.visited = new boolean[numberOfNodes];
 
         this.timeIn = new ArrayList<>();
         this.low = new ArrayList<>();
@@ -130,12 +130,44 @@ public class Network {
 
 
         for (int index = 0; index < numberOfNodes; index++) {
+            this.visited = new boolean[numberOfNodes];
             if (!visited[index] && this.dfs(index, -1))
                 articulationPoints.add(this.list.get(index));
         }
 
-        return articulationPoints;
+        return new ArrayList<>(articulationPoints);
     }
 
 
+    public ArrayList<ArrayList<Node>> identifyBlocks() {
+        var blocks = new ArrayList<ArrayList<Node>>();
+        var cutPoints = this.articulationPoints();
+
+
+        // start a dfs search from each node, and the graph formed by the search without articulation points will be a
+        // block
+        for (int index = 0; index < this.list.size(); index++) {
+            var currentBlock = new ArrayList<Node>();
+            boolean[] visited = new boolean[this.list.size()];
+            var stack = new Stack<Integer>();
+            int currentIndex;
+            stack.add(index);
+            visited[index] = true;
+            while (stack.size() != 0) {
+                currentIndex = stack.pop();
+                for (int nodeIndex : this.adjacencyList.get(currentIndex)) {
+                    // only visit nodes which are not articulation points and not visited yet
+                    if (!visited[nodeIndex] && !cutPoints.contains(this.list.get(nodeIndex))) {
+                        stack.add(nodeIndex);
+                        visited[nodeIndex] = true;
+                        currentBlock.add(this.list.get(nodeIndex));
+                    }
+                }
+            }
+            blocks.add(currentBlock);
+        }
+
+
+        return blocks;
+    }
 }
