@@ -14,12 +14,8 @@ public class Catalog {
         return documents;
     }
 
-    public void addDocuments(Document document) {
+    protected void addDocuments(Document document) {
         this.documents.add(document);
     }
 
-    @Override
-    public String toString(){
-        return this.documents.toString();
-    }
 }
