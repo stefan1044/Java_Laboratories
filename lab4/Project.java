@@ -1,10 +1,10 @@
 package lab4;
 
-public class Project implements Comparable<Project>{
+public class Project implements Comparable<Project> {
 
     private final String name;
 
-    Project(String name){
+    Project(String name) {
         this.name = name;
     }
 
@@ -16,7 +16,7 @@ public class Project implements Comparable<Project>{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.name + " ";
     }
 
