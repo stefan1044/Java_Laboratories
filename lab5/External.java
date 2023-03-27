@@ -4,7 +4,6 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 
 
-
 public class External {
     static void add(Catalog catalog, Document document) throws InvalidPathException {
         boolean isValid = true;
@@ -16,7 +15,7 @@ public class External {
             }
         }
 
-        if (!isValid){
+        if (!isValid) {
             throw new WrongPathException("Path for document:" + document + " is invalid!");
         }
 
@@ -24,7 +23,7 @@ public class External {
         catalog.addDocuments(document);
     }
 
-    static String toString(Catalog catalog){
+    static String toString(Catalog catalog) {
         return catalog.getDocuments().toString();
     }
 }
