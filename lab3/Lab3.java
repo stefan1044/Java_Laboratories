@@ -78,8 +78,6 @@ public class Lab3 {
     }
 
     void bonus() {
-        NetworkTest test = new NetworkTest();
 
-        test.articulationPoints();
     }
 }
