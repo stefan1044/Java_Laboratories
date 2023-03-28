@@ -9,14 +9,20 @@ public class ControlPanel extends JPanel {
     final Mainframe frame;
     JButton exitBtn = new JButton("Exit");
     JButton loadBtn = new JButton("Load");
+    JButton saveBtn = new JButton("Save");
 
-    public ControlPanel(Mainframe frame){
+    public ControlPanel(Mainframe frame) {
         this.frame = frame;
         init();
     }
 
-    private void init(){
+    private void init() {
         setLayout(new GridLayout(1, 4));
+
+        add(saveBtn);
+        add(loadBtn);
+        add(exitBtn);
+
 
         this.exitBtn.addActionListener(this::exitGame);
     }

@@ -2,7 +2,7 @@ package lab6;
 
 public class Lab6 {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Lab6 lab6 = new Lab6();
 
         lab6.compulsory();
@@ -10,11 +10,12 @@ public class Lab6 {
         lab6.bonus();
     }
 
-    private void compulsory(){
-
+    private void compulsory() {
+        Mainframe frame = new Mainframe();
+        frame.setVisible(true);
     }
 
-    private void homework(){
+    private void homework() {
 
     }
 
