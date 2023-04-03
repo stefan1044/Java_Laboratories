@@ -12,6 +12,8 @@ public class DrawingPanel extends JPanel {
     final static int width = 800, height = 600;
     private final static double PI = 3.1415926;
     private final static int CIRCLE_DIAMETER = 20;
+    private int[] x,y;
+    private int[][] edges;
     final Mainframe frame;
     BufferedImage image;
     Graphics2D graphics;
@@ -59,18 +61,30 @@ public class DrawingPanel extends JPanel {
         int y0 = height / 2;
         int radius = height / 2 - 10;
         double alpha = 2 * Math.PI / numVertices;
-        int[] x = new int[numVertices];
-        int[] y = new int[numVertices];
+        this.x = new int[numVertices];
+        this.y = new int[numVertices];
 
         x[0] = x0 + (int) (radius * Math.cos(0));
         y[0] = y0 + (int) (radius * Math.sin(0));
         for (int i = 1; i < numVertices; i++) {
             x[i] = x0 + (int) (radius * Math.cos(alpha * i));
             y[i] = y0 + (int) (radius * Math.sin(alpha * i));
-            graphics.drawLine(x[i] + (int) (PI + CIRCLE_DIAMETER / 2), y[i] + (int) (PI + CIRCLE_DIAMETER / 2), x[i - 1] + (int) (PI + CIRCLE_DIAMETER / 2), y[i - 1] + (int) (PI + CIRCLE_DIAMETER / 2));
+            graphics.drawLine(x[i] + (int) (PI + CIRCLE_DIAMETER / 2), y[i] + (int) (PI + CIRCLE_DIAMETER / 2),
+                    x[i - 1] + (int) (PI + CIRCLE_DIAMETER / 2), y[i - 1] + (int) (PI + CIRCLE_DIAMETER / 2));
             graphics.fillOval(x[i], y[i], CIRCLE_DIAMETER, CIRCLE_DIAMETER);
         }
-        graphics.drawLine(x[numVertices - 1] + (int) (PI + CIRCLE_DIAMETER / 2), y[numVertices - 1] + (int) (PI + CIRCLE_DIAMETER / 2), x[0] + (int) (PI + CIRCLE_DIAMETER / 2), y[0] + (int) (PI + CIRCLE_DIAMETER / 2));
+
+        for(int i = 0;i<numVertices;i++){
+            for(int j = i + 1;j<numVertices;j++){
+                if (i!=j) {
+                    this.edges[i][j] = 1;
+                    this.edges[j][i] = 1;
+                }
+            }
+        }
+
+        graphics.drawLine(x[numVertices - 1] + (int) (PI + CIRCLE_DIAMETER / 2), y[numVertices - 1] +
+                (int) (PI + CIRCLE_DIAMETER / 2), x[0] + (int) (PI + CIRCLE_DIAMETER / 2), y[0] + (int) (PI + CIRCLE_DIAMETER / 2));
         graphics.fillOval(x[0], y[0], CIRCLE_DIAMETER, CIRCLE_DIAMETER);
 
     }
