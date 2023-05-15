@@ -1,4 +1,5 @@
 import lab1.Lab1;
+import lab11.Lab11;
 import lab2.Lab2;
 import lab3.Lab3;
 import lab4.Lab4;
@@ -17,7 +18,8 @@ public class Main {
         //Lab5.main(args);
         //Lab6.main(args);
         //Lab7.main(args);
-        Lab8.main(args);
+        //Lab8.main(args);
+        Lab11.main(args);
 
     }
 
